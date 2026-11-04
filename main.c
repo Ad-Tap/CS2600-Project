@@ -18,13 +18,19 @@ int main(void)
 		//printf("x:%f, y:%f", pos.x, pos.y);
 		
 		// doesn't work yet. not too sure how texture mode works yet. This might be what allows us to keep what we draw 
-		// on the screen. looked at pendulem example in raylib website.
+		// on the screen. looked at pendulem example in ra ylib website.
 		BeginTextureMode(target);
-		DrawCircle(pos.x, pos.y, 10, BLUE);
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+			DrawCircle(pos.x, pos.y, 10, BLUE);
+		}
 		EndTextureMode();
 
 		// makes the background and displays blue circle where mouse should be
 		BeginDrawing();
+
+		// this is used to actually draw the thing drawn in what I believ to be some kind of texture buffer
+        DrawTextureRec(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, (float)-target.texture.height }, (Vector2){ 0, 0 }, WHITE);
+
 		ClearBackground(RAYWHITE);
 		DrawCircle(pos.x, pos.y, 10, BLUE);
 		PollInputEvents();
