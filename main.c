@@ -17,7 +17,8 @@ int main(void)
 		Vector2 pos = GetMousePosition();
 		//printf("x:%f, y:%f", pos.x, pos.y);
 		
-		// not too sure how texture mode works yet. This
+		// doesn't work yet. not too sure how texture mode works yet. This might be what allows us to keep what we draw 
+		// on the screen. looked at pendulem example in raylib website.
 		BeginTextureMode(target);
 		DrawCircle(pos.x, pos.y, 10, BLUE);
 		EndTextureMode();
