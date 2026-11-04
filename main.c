@@ -3,21 +3,40 @@
 
 int main(void)
 {
-    InitWindow(800, 450, "raylib example - basic window");
+	const int SCREEN_WIDTH = 800;
+	const int SCREEN_HEIGHT = 450;
+
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib example - basic window");
+
+	HideCursor();
+
+	RenderTexture2D target = LoadRenderTexture(SCREEN_WIDTH, SCREEN_HEIGHT);
 
     while (!WindowShouldClose())
     {
-        BeginDrawing();
-            ClearBackground(RAYWHITE);
-            DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
-        EndDrawing();
+		Vector2 pos = GetMousePosition();
+		//printf("x:%f, y:%f", pos.x, pos.y);
+		
+		// not too sure how texture mode works yet. This
+		BeginTextureMode(target);
+		DrawCircle(pos.x, pos.y, 10, BLUE);
+		EndTextureMode();
 
-		// checks if a is pressed then prints to terminal
-		// can't handle ctrl,alt,super so not yet useful for shortcuts
-		int key = GetKeyPressed();
-		if (key != 0) {
-			printf("%s\n", GetKeyName(key));
-		}
+		// makes the background and displays blue circle where mouse should be
+		BeginDrawing();
+		ClearBackground(RAYWHITE);
+		DrawCircle(pos.x, pos.y, 10, BLUE);
+		PollInputEvents();
+		
+		EndDrawing();
+
+//		// checks if a is pressed then prints to terminal
+//		// can't handle ctrl,alt,super so not yet useful for shortcuts
+//		int key = GetKeyPressed();
+//		if (key != 0) {
+//			printf("%s\n", GetKeyName(key));
+//		}
+
 
     }
 
