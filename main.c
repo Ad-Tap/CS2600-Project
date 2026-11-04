@@ -12,9 +12,11 @@ int main(void)
             DrawText("Congrats! You created your first window!", 190, 200, 20, LIGHTGRAY);
         EndDrawing();
 
-		// checks if A is pressed then prints to terminal
-		if (IsKeyPressed(KEY_A)) {
-			printf("%s\n", GetKeyName(GetKeyPressed()));
+		// checks if a is pressed then prints to terminal
+		// can't handle ctrl,alt,super so not yet useful for shortcuts
+		int key = GetKeyPressed();
+		if (key != 0) {
+			printf("%s\n", GetKeyName(key));
 		}
 
     }
