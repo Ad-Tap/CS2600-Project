@@ -1,2 +1,2 @@
-// File for Undo and redo functionality
+// File for Pencil, eraser, line, and shapes
 
