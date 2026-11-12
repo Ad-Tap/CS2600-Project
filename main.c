@@ -44,15 +44,6 @@ int main(void)
 		PollInputEvents();
 		
 		EndDrawing();
-
-//		// checks if a is pressed then prints to terminal
-//		// can't handle ctrl,alt,super so not yet useful for shortcuts
-//		int key = GetKeyPressed();
-//		if (key != 0) {
-//			printf("%s\n", GetKeyName(key));
-//		}
-
-
     }
 
     CloseWindow();
