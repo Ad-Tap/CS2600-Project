@@ -39,7 +39,11 @@ int main(void){
 
       DrawTriangleLines((Vector2){ screenWidth/4.0f*3.0f, 160.0f },
                         (Vector2){ screenWidth/4.0f*3.0f - 20.0f, 230.0f },
-                        (Vector2){ screenWidth/4.0f*3.0f +2-.0f, 230.0f }, DARKBLUE
+                        (Vector2){ screenWidth/4.0f*3.0f +2-.0f, 230.0f }, DARKBLUE);
+      // Make polygon shapes and lines
+      DrawPoly((Vector2){ screenWidth/4.0f*3, 330 }, 6, 80, rotation, BROWN);
+      DrawPolyLines((Vector2){ screenWidth/4.0f*3, 330 }, 6, 90, rotation, BROWN);
+      DrawPolyLInesEx((Vector2){ screenWidth/4.0f*3, 330 }, 6, 85, rotation, 6, BEIGE);
       {
 }
 
