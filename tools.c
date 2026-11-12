@@ -18,32 +18,32 @@ int main(void){
     BeginDrawing();
       ClearBackground(RAYWHITE);
 
-      DrawText("some basic shapes available on raylib", 20, 20, 20, DARKGRAY);
+      DrawText("some basic shapes available on raylib", 20, 20, 20, BLACK);
 
       // Establishes circle shapes and lines
-      DrawCircle(screenWdith/5, 120, 35, DARKBLUE);
-      DrawCircleGradient((Vector 2){ screenWidth/5.0f, 220.0f }, 60, GREEN, SKYBLUE);
-      DrawCircleLines(screenWidth/5, 340, 80, DARKBLUE);
-      DrawEllipse(screenWidth/5, 120, 25, 20, YELLOW);
-      DrawEllipseLines(screenWidth/5, 120, 30, 25, YELLOW);
+      DrawCircle(screenWdith/5, 120, 35, BLACK);
+      DrawCircleGradient((Vector 2){ screenWidth/5.0f, 220.0f }, 60, BLACK, BLACK);
+      DrawCircleLines(screenWidth/5, 340, 80, BLACK);
+      DrawEllipse(screenWidth/5, 120, 25, 20, BLACK);
+      DrawEllipseLines(screenWidth/5, 120, 30, 25, BLACK);
 
       // Establishes our rectangle shapes and lines
-      DrawRectangle(screenWidth/4*2 - 60, 100, 120, 60, RED);
-      DrawRectangleGradientH(screenWidth/4*2 - 90, 170, 180, 130, MAROON, GOLD);
-      DrawRectangleLines(screenWidth/4*2 - 40, 320, 80, 60, ORANGE);
+      DrawRectangle(screenWidth/4*2 - 60, 100, 120, 60, BLACK);
+      DrawRectangleGradientH(screenWidth/4*2 - 90, 170, 180, 130, BLACK, BLACK);
+      DrawRectangleLines(screenWidth/4*2 - 40, 320, 80, 60, BLACK);
 
       //Establishes the triangle shapes and lines
       DrawTriangle((Vector2){ screenWidth/4.0f *3.0f, 80.0f },
                    (Vector2){ screenWidth/4.0f *3.0f - 60.0f, 150.0f },
-                   (Vector2){ screenWidth/4.0f *3.0f + 60.0f, 150.0f }, VIOLET);
+                   (Vector2){ screenWidth/4.0f *3.0f + 60.0f, 150.0f }, BLACK);
 
       DrawTriangleLines((Vector2){ screenWidth/4.0f*3.0f, 160.0f },
                         (Vector2){ screenWidth/4.0f*3.0f - 20.0f, 230.0f },
-                        (Vector2){ screenWidth/4.0f*3.0f +2-.0f, 230.0f }, DARKBLUE);
+                        (Vector2){ screenWidth/4.0f*3.0f +2-.0f, 230.0f }, BLACK);
       // Make polygon shapes and lines
-      DrawPoly((Vector2){ screenWidth/4.0f*3, 330 }, 6, 80, rotation, BROWN);
-      DrawPolyLines((Vector2){ screenWidth/4.0f*3, 330 }, 6, 90, rotation, BROWN);
-      DrawPolyLInesEx((Vector2){ screenWidth/4.0f*3, 330 }, 6, 85, rotation, 6, BEIGE);
+      DrawPoly((Vector2){ screenWidth/4.0f*3, 330 }, 6, 80, rotation, BLACK);
+      DrawPolyLines((Vector2){ screenWidth/4.0f*3, 330 }, 6, 90, rotation, BLACK);
+      DrawPolyLInesEx((Vector2){ screenWidth/4.0f*3, 330 }, 6, 85, rotation, 6, BLACK);
 
       // Renders all lines in a single draw pass
       DrawLine(18,42, screenWidth -18, 42, BLACK);
