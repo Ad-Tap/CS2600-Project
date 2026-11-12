@@ -11,5 +11,12 @@ int main(void){
 
   float rotation = 0.0f;
   SteTargetFPS(60);
+
+  // Sets up our shapes window to update and draw
+  while (!WindowShouldClocese()){
+    rotate += 0.2f;
+    BeginDrawing();
+      ClearBackground(RAYWHITE
+      {
 }
 
