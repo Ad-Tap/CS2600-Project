@@ -31,6 +31,15 @@ int main(void){
       DrawRectangle(screenWidth/4*2 - 60, 100, 120, 60, RED);
       DrawRectangleGradientH(screenWidth/4*2 - 90, 170, 180, 130, MAROON, GOLD);
       DrawRectangleLines(screenWidth/4*2 - 40, 320, 80, 60, ORANGE);
+
+      //Establishes the triangle shapes and lines
+      DrawTriangle((Vector2){ screenWidth/4.0f *3.0f, 80.0f },
+                   (Vector2){ screenWidth/4.0f *3.0f - 60.0f, 150.0f },
+                   (Vector2){ screenWidth/4.0f *3.0f + 60.0f, 150.0f }, VIOLET);
+
+      DrawTriangleLines((Vector2){ screenWidth/4.0f*3.0f, 160.0f },
+                        (Vector2){ screenWidth/4.0f*3.0f - 20.0f, 230.0f },
+                        (Vector2){ screenWidth/4.0f*3.0f +2-.0f, 230.0f }, DARKBLUE
       {
 }
 
