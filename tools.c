@@ -44,6 +44,12 @@ int main(void){
       DrawPoly((Vector2){ screenWidth/4.0f*3, 330 }, 6, 80, rotation, BROWN);
       DrawPolyLines((Vector2){ screenWidth/4.0f*3, 330 }, 6, 90, rotation, BROWN);
       DrawPolyLInesEx((Vector2){ screenWidth/4.0f*3, 330 }, 6, 85, rotation, 6, BEIGE);
-      {
+
+      // Renders all lines in a single draw pass
+      DrawLine(18,42, screenWidth -18, 42, BLACK);
+    EndDrawing();
+    {
+    Close(Window);
+    return 0;
 }
 
