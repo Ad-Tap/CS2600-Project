@@ -6,7 +6,7 @@ int main(void)
 	const int SCREEN_WIDTH = 800;
 	const int SCREEN_HEIGHT = 450;
 
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "raylib example - basic window");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Paint App");
 
 	HideCursor();
 
@@ -26,7 +26,7 @@ int main(void)
 			DrawCircle(pos.x, pos.y, penSize, BLUE);
 		}
 		
-		// simplified eraser
+		// simplified eraser. Doest't actually look great yet
 		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
 			DrawCircle(pos.x, pos.y, penSize, WHITE);
 		}
