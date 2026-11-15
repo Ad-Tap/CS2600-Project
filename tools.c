@@ -1,7 +1,7 @@
 #include "raylib.h"
 #include <math.h>
 
-// Helper function for main function
+// Helper function for main function with has the logic to build the shapes dyamically
 void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Color color){
   // This first converts the screen coordinates to the raylib coordinates
   int x1 = (int)start.x;
@@ -25,10 +25,22 @@ void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Col
   switch (shapeType){
     // Rectangles
     case0:
+      ImageDrawRectangle(dst, x, y, width, height, color);
+      break;
     // Circles
     case1:
+    {
+      int centerX = x + width / 2;
+      int centerY = y + height / 2;
+      int radius = (width > height ? width: height) / 2;
+      ImageDrawCircle(dst, centerX, centerY, radius, color);
+    }
+    break;
     // Lines
     case2:
+      ImageDrawLine(dst, x1, y1, x2, y2, color);
+      break;
     default:
+      break;
   }
 }
