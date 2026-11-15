@@ -14,6 +14,21 @@ void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Col
   int width = x2 - x1;
   int height = y2 - y1;
   // This handles the dragging backwards with negative width or height
-
-
+  if (width < 0){
+    x = x2;
+    width = -width;
+  }
+  if (height <0){
+    y = y2;
+    height = -height;
+  }
+  switch (shapeType){
+    // Rectangles
+    case0:
+    // Circles
+    case1:
+    // Lines
+    case2:
+    default:
+  }
 }
