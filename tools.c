@@ -5,33 +5,37 @@ void DrawShapes(int screenWidth, int screenHeight){
 
       DrawText("Some basic shapes available on raylib", 20, 20, 20, BLACK);
 
+      float col1X = screenWidth * 0.20f;
       // Establishes circle shapes and lines
-      DrawCircle(screenWidth/5, 120, 35, BLACK);
-      DrawCircleGradient(screenWidth/5.0f, 220.0f, 60, BLACK, GREY);
-      DrawCircleLines(screenWidth/5, 340, 80, BLACK);
-      DrawEllipse(screenWidth/5, 120, 25, 20, BLACK);
-      DrawEllipseLines(screenWidth/5, 120, 30, 25, BLACK);
+      DrawCircle(col1X, screenHeight * 0.26f, 35, BLACK);
+      DrawCircleGradient(col1X, screenHeight * 0.48f, 60, BLACK, GRAY);
+      DrawCircleLines(col1X, screenHeight * 0.75f, 80, BLACK);
+      DrawEllipse(col1X, screenHeight * 0.26f, 25, 20, BLACK);
+      DrawEllipseLines(col1X, screenHeight * 0.26f, 30, 25, BLACK);
+
+      float col2X = screenWidth * 0.50f;
 
       // Establishes our rectangle shapes and lines
-      DrawRectangle(screenWidth/4*2 - 60, 100, 120, 60, BLACK);
-      DrawRectangleGradientH(screenWidth/4*2 - 90, 170, 180, 130, BLACK, GREY);
-      DrawRectangleLines(screenWidth/4*2 - 40, 320, 80, 60, BLACK);
+      DrawRectangle(col2X - 60, screenHeight * 0.22f, 120, 60, BLACK);
+      DrawRectangleGradientH(col2X - 90, screenHeight * 0.37f, 180, 130, BLACK, GRAY);
+      DrawRectangleLines(col2X - 40, screenHeight * 0.71f, 80, 60, BLACK);
 
+      float col3X = screenWidth * 0.75f;
       //Establishes the triangle shapes and lines
-      DrawTriangle((Vector2){ screenWidth/4.0f *3.0f, 80.0f },
-                   (Vector2){ screenWidth/4.0f *3.0f - 60.0f, 150.0f },
-                   (Vector2){ screenWidth/4.0f *3.0f + 60.0f, 150.0f }, BLACK);
+      DrawTriangle((Vector2){ col3X, screenHeight * 0.17f }, 
+                 (Vector2){ col3X - 60.0f, screenHeight * 0.33f }, 
+                 (Vector2){ col3X + 60.0f, screenHeight * 0.33f }, BLACK);
 
-      DrawTriangleLines((Vector2){ screenWidth/4.0f*3.0f, 160.0f },
-                        (Vector2){ screenWidth/4.0f*3.0f - 20.0f, 230.0f },
-                        (Vector2){ screenWidth/4.0f*3.0f + 20.0f, 230.0f }, BLACK);
+      DrawTriangleLines((Vector2){ col3X, screenHeight * 0.35f }, 
+                      (Vector2){ col3X - 20.0f, screenHeight * 0.51f }, 
+                      (Vector2){ col3X + 20.0f, screenHeight * 0.51f }, BLACK);
       // Make polygon shapes and lines
-      DrawPoly((Vector2){ screenWidth/4.0f*3, 330 }, 6, 80, 0.0f, BLACK);
-      DrawPolyLines((Vector2){ screenWidth/4.0f*3, 330 }, 6, 90, 0.0f, BLACK);
-      DrawPolyLinesEx((Vector2){ screenWidth/4.0f*3, 330 }, 6, 85, 0.0f, 6, BLACK);
+      DrawPoly((Vector2){ col3X, screenHeight * 0.73f }, 6, 80, 0.0f, BLACK);
+      DrawPolyLines((Vector2){ col3X, screenHeight * 0.73f }, 6, 90, 0.0f, BLACK);
+      DrawPolyLinesEx((Vector2){ col3X, screenHeight * 0.73f }, 6, 85, 0.0f, 6, BLACK);
 
       // Renders all lines in a single draw pass
-      DrawLine(18,42, screenWidth -18, 42, BLACK);
+      DrawLine(18, 42, screenWidth - 18, 42, BLACK);
   }
   
 
