@@ -1,5 +1,11 @@
 #include "raylib.h"
 #include <stdio.h>
+#include <string.h>
+
+char mode[] = "pen";
+
+// converts string to corresponding int if its a valid mode.
+int modeToInt(char mode[]);
 
 int main(void)
 {
@@ -22,9 +28,17 @@ int main(void)
 		// doesn't work yet. not too sure how texture mode works yet. This might be what allows us to keep what we draw 
 		// on the screen. looked at pendulem example in ra ylib website.
 		BeginTextureMode(target);
-		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-			DrawCircle(pos.x, pos.y, penSize, BLUE);
-		}
+		
+		switch (modeToInt(mode)) {
+			case 0: 
+				if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+					DrawCircle(pos.x, pos.y, penSize, BLUE);
+				}
+				break;
+			default: 
+				printf("Invalid Mode\n");
+				break;
+		}	
 		
 		// simplified eraser. Doest't actually look great yet
 		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
@@ -49,4 +63,17 @@ int main(void)
     CloseWindow();
 
     return 0;
+}
+
+
+int modeToInt(char mode[]) {
+	char *modesArr[] = {"pen", "shapes", "line", "eraser"}; // referenced https://www.geeksforgeeks.org/c/array-of-strings-in-c/
+	int modeIndex = -1;
+
+	for (int i = 0; i < 4; i++) {
+		if (strcmp(modesArr[i], mode) == 0) {
+			modeIndex = i;
+		}
+	}
+	return modeIndex;
 }
