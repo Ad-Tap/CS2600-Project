@@ -35,7 +35,7 @@ int main(void)
 			case 0: 
 				// pen mode
 				if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-					DrawCircle(pos.x, SCREEN_HEIGHT - pos.y, penSize, BLUE);
+					DrawCircle(pos.x, pos.y, penSize, BLUE);
 				}
 				if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
 					fill(target.texture, pos.x, pos.y, BLACK);
