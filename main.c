@@ -6,7 +6,7 @@ char mode[] = "pen";
 
 // returns corresponding int if string is a valid mode. Returns -1 otherwise. 
 int modeToInt(char mode[]);
-void fill(Image* image, int x, int y, Color fillColor);
+void fill(Texture texture, int x, int y, Color fillColor);
 void fillHelper(Image* image, int x, int y, Color fillColor, Color originalPixelColor);
 
 int main(void)
@@ -15,7 +15,6 @@ int main(void)
 	const int SCREEN_HEIGHT = 450;
 
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Paint App");
-	Image canvas = GenImageColor(SCREEN_WIDTH, SCREEN_HEIGHT, RAYWHITE);
 
 	HideCursor();
 
@@ -36,10 +35,10 @@ int main(void)
 			case 0: 
 				// pen mode
 				if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-					ImageDrawCircle(&canvas, pos.x, SCREEN_HEIGHT - pos.y, penSize, BLUE);
+					DrawCircle(pos.x, SCREEN_HEIGHT - pos.y, penSize, BLUE);
 				}
 				if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
-					fill(&canvas, pos.x, pos.y, BLACK);
+					fill(target.texture, pos.x, pos.y, BLACK);
 				}
 				break;
 			case 1:
@@ -60,7 +59,6 @@ int main(void)
 		// makes the background and displays blue circle where mouse should be
 		BeginDrawing();
 
-		UpdateTexture(target.texture, canvas.data);
 		// this is used to actually draw the thing drawn in what I believe to be some kind of texture buffer
         DrawTextureRec(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, (float)-target.texture.height }, (Vector2){ 0, 0 }, WHITE);
 		
@@ -91,21 +89,24 @@ int modeToInt(char mode[]) {
 }
 
 // ISSUE: fill() and fillHelper() need some sort of out of bounds check. currently crashes if filling out of any non enclosed shape
-void fill(Image* image, int x, int y, Color fillColor) {
-	y = image->height - y; // convert to coordinate system of image
+void fill(Texture texture, int x, int y, Color fillColor) {
+	Image image = LoadImageFromTexture(texture);
+	y = image.height - y; // convert to coordinate system of image
 
-	Color originalPixelColor = GetImageColor(*image, x, y);
-	Color *pixel = image->data;
-	Color targetPixel = pixel[x + y * (int)image->width];
+	Color originalPixelColor = GetImageColor(image, x, y);
+	Color *pixel = image.data;
+	Color targetPixel = pixel[x + y * (int)image.width];
 	
 	// changes clicked pixel to the desired color 
-	pixel[x + y * (int)image->width] = fillColor;
+	pixel[x + y * (int)image.width] = fillColor;
 	
 	//tries to change all adjacent pixels
-	fillHelper(image, x+1, y, fillColor, originalPixelColor);
-	fillHelper(image, x, y+1, fillColor, originalPixelColor);
-	fillHelper(image, x-1, y, fillColor, originalPixelColor);
-	fillHelper(image, x, y-1, fillColor, originalPixelColor);
+	fillHelper(&image, x+1, y, fillColor, originalPixelColor);
+	fillHelper(&image, x, y+1, fillColor, originalPixelColor);
+	fillHelper(&image, x-1, y, fillColor, originalPixelColor);
+	fillHelper(&image, x, y-1, fillColor, originalPixelColor);
+
+	UpdateTexture(texture, image.data);
 }
 
 void fillHelper(Image* image, int x, int y, Color fillColor, Color originalPixelColor) {
