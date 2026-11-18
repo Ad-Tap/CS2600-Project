@@ -7,7 +7,7 @@ void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Col
   int x1 = (int)start.x;
   int y1 = dst->height - (int)start.y;
   int x2 = (int)end.x;
-  int y2 = dst->height - (int)end.y);
+  int y2 = dst->height - (int)end.y;
 
   int x = x1;
   int y = y1;
@@ -24,11 +24,11 @@ void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Col
   }
   switch (shapeType){
     // Rectangles
-    case0:
+    case 0:
       ImageDrawRectangle(dst, x, y, width, height, color);
       break;
     // Circles
-    case1:
+    case 1:
     {
       int centerX = x + width / 2;
       int centerY = y + height / 2;
@@ -37,7 +37,7 @@ void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Col
     }
     break;
     // Lines
-    case2:
+    case 2:
       ImageDrawLine(dst, x1, y1, x2, y2, color);
       break;
     default:
