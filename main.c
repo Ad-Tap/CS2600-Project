@@ -1,19 +1,16 @@
-# include "raylib.h"
+#include "raylib.h"
 #include <stdio.h>
-#include <string.h>
 #include "tools.c"
 
 char mode[] = "pen";
 
-// returns corresponding int if string is a valid mode. Returns -1 otherwise. 
-int modeToInt(char mode[]);
-
 int main(void)
 {
-	const int SCREEN_WIDTH = 800;
-	const int SCREEN_HEIGHT = 450;
+	const int SCREEN_WIDTH = 900;
+	const int SCREEN_HEIGHT = 600;
+	const int TOOLBAR_HEIGHT = 30;
 
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Paint App");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT+TOOLBAR_HEIGHT, "Paint App");
 
 	HideCursor();
 
@@ -57,6 +54,8 @@ int main(void)
 
 		// makes the background and displays blue circle where mouse should be
 		BeginDrawing();
+		//background for tool section
+		DrawRectangle(0, SCREEN_HEIGHT, SCREEN_WIDTH, TOOLBAR_HEIGHT, GRAY); 
 
 		// this is used to actually draw the thing drawn in what I believe to be some kind of texture buffer
         DrawTextureRec(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, (float)-target.texture.height }, (Vector2){ 0, 0 }, WHITE);
@@ -65,6 +64,7 @@ int main(void)
 		ClearBackground(RAYWHITE);
 		DrawCircle(pos.x, pos.y, penSize, BLUE);
 		PollInputEvents();
+
 		
 		EndDrawing();
     }
@@ -74,16 +74,4 @@ int main(void)
     return 0;
 }
 
-
-int modeToInt(char mode[]) {
-	char *modesArr[] = {"pen", "eraser", "shapes", "line", "fill"}; // referenced https://www.geeksforgeeks.org/c/array-of-strings-in-c/
-	int modeIndex = -1;
-
-	for (int i = 0; i < 4; i++) {
-		if (strcmp(modesArr[i], mode) == 0) {
-			modeIndex = i;
-		}
-	}
-	return modeIndex;
-}
 
