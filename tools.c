@@ -1,6 +1,9 @@
 #include "raylib.h"
+#include <string.h>
 #include <math.h>
 
+// returns corresponding int if string is a valid mode. Returns -1 otherwise. 
+int modeToInt(char mode[]);
 void fill(Texture texture, int x, int y, Color fillColor);
 void fillHelper(Image* image, int x, int y, Color fillColor, Color originalPixelColor);
 
@@ -91,5 +94,24 @@ void fillHelper(Image* image, int x, int y, Color fillColor, Color originalPixel
 			fillHelper(image, x, y-1, fillColor, originalPixelColor);
 		}
 	
+	}
+}
+
+int modeToInt(char mode[]) {
+	char *modesArr[] = {"pen", "eraser", "shapes", "line", "fill"}; // referenced https://www.geeksforgeeks.org/c/array-of-strings-in-c/
+	int modeIndex = -1;
+
+	for (int i = 0; i < 4; i++) {
+		if (strcmp(modesArr[i], mode) == 0) {
+			modeIndex = i;
+		}
+	}
+	return modeIndex;
+}
+
+void changeMode(char newMode[], char *prevMode[]) {
+	// check if newMode is valid
+	if (modeToInt(newMode) != -1) {
+		*prevMode = newMode;
 	}
 }
