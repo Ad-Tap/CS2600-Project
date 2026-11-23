@@ -1,6 +1,9 @@
 #include "raylib.h"
 #include <math.h>
 
+void fill(Texture texture, int x, int y, Color fillColor);
+void fillHelper(Image* image, int x, int y, Color fillColor, Color originalPixelColor);
+
 // Helper function for main function with has the logic to build the shapes dyamically
 void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Color color){
   // This first converts the screen coordinates to the raylib coordinates
@@ -43,4 +46,50 @@ void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Col
     default:
       break;
   }
+}
+
+// ISSUE: fill() and fillHelper() need some sort of out of bounds check. currently crashes if filling out of any non enclosed shape
+void fill(Texture texture, int x, int y, Color fillColor) {
+	Image image = LoadImageFromTexture(texture);
+	y = image.height - y; // convert to coordinate system of image
+
+	Color originalPixelColor = GetImageColor(image, x, y);
+	Color *pixel = image.data;
+	Color targetPixel = pixel[x + y * (int)image.width];
+	
+	// changes clicked pixel to the desired color 
+	pixel[x + y * (int)image.width] = fillColor;
+	
+	//tries to change all adjacent pixels
+	fillHelper(&image, x+1, y, fillColor, originalPixelColor);
+	fillHelper(&image, x, y+1, fillColor, originalPixelColor);
+	fillHelper(&image, x-1, y, fillColor, originalPixelColor);
+	fillHelper(&image, x, y-1, fillColor, originalPixelColor);
+
+	UpdateTexture(texture, image.data);
+}
+
+void fillHelper(Image* image, int x, int y, Color fillColor, Color originalPixelColor) {
+
+	Color *pixel = image->data;
+	Color targetPixel = pixel[x + y * (int)image->width];
+	
+	if (ColorIsEqual(targetPixel, originalPixelColor)) {
+		pixel[x + y * (int)image->width] = fillColor;
+		
+		// checks all adjacent pixels
+		if (!ColorIsEqual(pixel[(x+1) + y * (int)image->width], fillColor)) {
+			fillHelper(image, x+1, y, fillColor, originalPixelColor);
+		}
+		if (!ColorIsEqual(pixel[x + (y+1) * (int)image->width], fillColor)) {
+			fillHelper(image, x, y+1, fillColor, originalPixelColor);
+		}
+		if (!ColorIsEqual(pixel[(x-1) + y * (int)image->width], fillColor)) {
+			fillHelper(image, x-1, y, fillColor, originalPixelColor);
+		}
+		if (!ColorIsEqual(pixel[x + (y-1) * (int)image->width], fillColor)) {
+			fillHelper(image, x, y-1, fillColor, originalPixelColor);
+		}
+	
+	}
 }
