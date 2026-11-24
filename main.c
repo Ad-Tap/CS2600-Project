@@ -3,6 +3,7 @@
 #include <string.h>
 #include "tools.c"
 
+// Change this to char mode[] = "shapes"; if you want to see shapes feature
 char mode[] = "pen";
 
 // returns corresponding int if string is a valid mode. Returns -1 otherwise. 
@@ -18,6 +19,10 @@ int main(void)
 	HideCursor();
 
 	RenderTexture2D target = LoadRenderTexture(SCREEN_WIDTH, SCREEN_HEIGHT);
+
+	BeginTextureMode(target);
+	ClearBackground(RAYWHITE);
+	EndTextureMode();
 
 	//drawing pencil/pen vars
 	int penSize = 2;
@@ -58,11 +63,12 @@ int main(void)
 		// makes the background and displays blue circle where mouse should be
 		BeginDrawing();
 
+		ClearBackground(RAYWHITE);
+
 		// this is used to actually draw the thing drawn in what I believe to be some kind of texture buffer
         DrawTextureRec(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, (float)-target.texture.height }, (Vector2){ 0, 0 }, WHITE);
 		
 
-		ClearBackground(RAYWHITE);
 		DrawCircle(pos.x, pos.y, penSize, BLUE);
 		PollInputEvents();
 		
