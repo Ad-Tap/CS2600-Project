@@ -8,9 +8,9 @@ void fillHelper(Image* image, int x, int y, Color fillColor, Color originalPixel
 void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Color color){
   // This first converts the screen coordinates to the raylib coordinates
   int x1 = (int)start.x;
-  int y1 = dst->height - (int)start.y;
+  int y1 = (int)start.y;
   int x2 = (int)end.x;
-  int y2 = dst->height - (int)end.y;
+  int y2 = (int)end.y;
 
   int x = x1;
   int y = y1;
