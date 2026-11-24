@@ -4,7 +4,7 @@
 void fill(Texture texture, int x, int y, Color fillColor);
 void fillHelper(Image* image, int x, int y, Color fillColor, Color originalPixelColor);
 
-// Helper function for main function with has the logic to build the shapes dyamically
+// Helper function for main function with the logic to build the shapes dynamically
 void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Color color){
   // This first converts the screen coordinates to the raylib coordinates
   int x1 = (int)start.x;
@@ -46,6 +46,25 @@ void DrawShapeOnImage(Image *dst, Vector2 start, Vector2 end, int shapeType, Col
     default:
       break;
   }
+}
+
+// This function lets us update the shape tool and handles the actual mouse output
+void updateShapeTool(RenderTexture2D *target, Vector2 pos, int shapeType, Color color) {
+    static Vector2 shapeStart = {0};
+    static bool draggingShape = false;
+
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        shapeStart = pos;
+        draggingShape = true;
+    }
+
+    if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT) && draggingShape) {
+        Image canvasImg = LoadImageFromTexture(target->texture);
+        DrawShapeOnImage(&canvasImg, shapeStart, pos, shapeType, color);
+        UpdateTexture(target->texture, canvasImg.data);
+        UnloadImage(canvasImg);
+        draggingShape = false;
+    }
 }
 
 // ISSUE: fill() and fillHelper() need some sort of out of bounds check. currently crashes if filling out of any non enclosed shape
