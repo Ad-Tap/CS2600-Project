@@ -2,6 +2,9 @@
 #include "raylib.h"
 #include <stdio.h>
 // Going to work on this this week: Color picking. Either by a number entry (HSV) or visual palette. - Jake 
+#ifndef MAX_COLORS_COUNT
+#define MAX_COLORS_COUNT 21
+#endif
 
 // Array that holds all of our colors. Can't really be modified since its static. If we want to add more colors we add them here
 static Color Colors[MAX_COLORS_COUNT] = {
@@ -13,7 +16,7 @@ static int colorSelected = 0;
 
 
 // Tels us how many colors are in our palette
-int getColorCount() {
+int getColorCount(void) {
     return MAX_COLORS_COUNT;
 }
 
@@ -28,7 +31,7 @@ Color getColorPalette(int index){
 }
 
 // Retrieves current selected color from the palette
-Color getSelectedColor(){
+Color getSelectedColor(void){
     return Colors[colorSelected];
 }
 
