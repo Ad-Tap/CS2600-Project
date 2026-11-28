@@ -1,9 +1,11 @@
-# include "raylib.h"
+#include "raylib.h"
 #include <stdio.h>
 #include <string.h>
+#include "colors.c"
 #include "tools.c"
 
-char mode[] = "pen";
+// sized to fit the longest mode name ("eraser" / "shapes") so strcpy can switch modes safely
+char mode[16] = "pen";
 
 // returns corresponding int if string is a valid mode. Returns -1 otherwise. 
 int modeToInt(char mode[]);
@@ -19,25 +21,42 @@ int main(void)
 
 	RenderTexture2D target = LoadRenderTexture(SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	//drawing pencil/pen vars
 	int penSize = 2;
+	int colorIndex = 0;
+	setSelectedColor(colorIndex);
+	Vector2 lastPos = GetMousePosition();
 
     while (!WindowShouldClose())
     {
 		Vector2 pos = GetMousePosition();
-		
-		// doesn't work yet. not too sure how texture mode works yet. This might be what allows us to keep what we draw 
-		// on the screen. looked at pendulem example in ra ylib website.
+
+		// cycle palette colors with left/right arrows
+		if (IsKeyPressed(KEY_RIGHT)) {
+			colorIndex = (colorIndex + 1) % getColorCount();
+			setSelectedColor(colorIndex);
+		}
+		if (IsKeyPressed(KEY_LEFT)) {
+			colorIndex = (colorIndex - 1 + getColorCount()) % getColorCount();
+			setSelectedColor(colorIndex);
+		}
+
+		Color activeColor = getSelectedColor();
+
 		BeginTextureMode(target);
-		
+
 		switch (modeToInt(mode)) {
 			case 0: 
 				// pen mode
+				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+					lastPos = pos;
+				}
 				if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-					DrawCircle(pos.x, pos.y, penSize, BLUE);
+					// connect lastPos to pos to avoid gaps
+					DrawLineEx(lastPos, pos, penSize * 2.0f, activeColor);
+					lastPos = pos;
 				}
 				if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
-					fill(target.texture, pos.x, pos.y, BLACK);
+					fill(target.texture, (int)pos.x, (int)pos.y, activeColor);
 				}
 				break;
 			case 1:
@@ -45,30 +64,33 @@ int main(void)
 				if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
 					DrawCircle(pos.x, pos.y, penSize, RAYWHITE);
 				}
+				break;
+			case 2:
+				// shape mode
+				updateShapeTool(&target, pos, 0, activeColor);
+				break;
 			case 4:
 				// fill mode
 				break;
 			default: 
 				printf("Invalid Mode\n");
 				break;
-		}	
+		}
+
 		EndTextureMode();
 
-
-		// makes the background and displays blue circle where mouse should be
 		BeginDrawing();
 
-		// this is used to actually draw the thing drawn in what I believe to be some kind of texture buffer
-        DrawTextureRec(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, (float)-target.texture.height }, (Vector2){ 0, 0 }, WHITE);
-		
-
 		ClearBackground(RAYWHITE);
-		DrawCircle(pos.x, pos.y, penSize, BLUE);
+
+        DrawTextureRec(target.texture, (Rectangle){ 0, 0, (float)target.texture.width, (float)-target.texture.height }, (Vector2){ 0, 0 }, WHITE);
+
+		DrawCircle(pos.x, pos.y, penSize, activeColor);
 		PollInputEvents();
-		
+
 		EndDrawing();
     }
-	
+
     CloseWindow();
 
     return 0;
@@ -79,11 +101,10 @@ int modeToInt(char mode[]) {
 	char *modesArr[] = {"pen", "eraser", "shapes", "line", "fill"}; // referenced https://www.geeksforgeeks.org/c/array-of-strings-in-c/
 	int modeIndex = -1;
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 5; i++) {
 		if (strcmp(modesArr[i], mode) == 0) {
 			modeIndex = i;
 		}
 	}
 	return modeIndex;
 }
-
